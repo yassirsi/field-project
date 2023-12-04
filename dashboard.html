@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>medical record</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+        *{
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body{
+            display: flex;
+        }
+        .sidebar{
+            position: sticky;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 110px;
+            height: 100vh;
+            padding: 0 1.7rem;
+            color: white;
+            overflow: hidden;
+            transition: all 0.5s linear;
+            background-color: rgba(113,99,186,255);
+            background-color: rgb(43, 56, 241);
+
+        }
+        .sidebar:hover{
+            width: 240px;
+            transition: 0.5s;
+        }
+        .logo{
+            height: 80px;
+            padding: 16px;
+        }
+        .menu{
+            height: 88%;
+            position: relative;
+            list-style: none;
+            padding: 0;
+        }
+        .menu li{
+            padding: 1rem;
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: all 0.5s ease-in-out;
+        }
+        .menu li:hover,
+        .active{
+            background-color: #070000fd;
+        }
+        .menu a{
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem ;
+        }
+        .menu a span{
+            overflow: hidden;
+        }
+        .menu a i{
+            font-size: 1.2 rem;
+        }
+        .logout{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100% ;
+        }
+
+        /*main body*/
+        .main--content{
+            position: relative;
+            background: #ebe9e9;
+            width: 100%;
+            padding: 1rem;
+        }
+        .header--wrapper img{
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .header--wrapper{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            background: white;
+            border-radius: 10px;
+            padding: 10px 2rem;
+            margin-bottom: 1rem;
+        }
+        .header--title{
+            color: rgba(113,99,186,255);
+        }
+        .user--info{
+            display: flex;
+            align-items: center;
+            gap: 1 rem;
+        }
+        .search--bar{
+            background: rgb(237,237,237);
+            border-radius: 15px;
+            color: rgba(113,99,186,255);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+        } 
+        .search--bar input{
+            background: transparent;
+            padding: 10px;
+        }
+        .search--box i{
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.5s ease-out;
+        }
+        .search--box i:hover{
+            transform: scale(1.2);
+        }
+        /*card container*/
+        .card--container{
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            
+        }
+        .card--wrapper{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .main--title{
+            color: rgba(113,99,186,255);
+            padding-bottom: 10px;
+            font-size: 15px;
+
+        }
+        .payment--card{
+           background: rgb(252, 152, 152);
+           padding: 2rem;
+           width: 240px;
+           height: 150px;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+           transition: all 0.5s ease-in-out; 
+        }
+        .payment--card:hover{
+            transform: translateY(-5px);
+        }
+        .card--header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .ammount{
+            display: flex;
+            flex-direction: column;
+        }
+        .title{
+            font-size: 12px;
+            font-weight: 200;
+        }
+        .ammount-value{
+            font-size: 24px;
+            font-family: "Courier New",Courier,monospace;
+            font-weight: 600;
+        }
+        .icon{
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            height: 60px;
+            width: 60px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            background: red;
+        }
+        .card-detail{
+            font-size: 18px;
+            color: #f5f1f1;
+            letter-spacing: 2px;
+            font-family: "Courier New",Courier,monospace;
+
+        }
+
+        /*color css*/
+        .light-red{
+            background: rgba(235,254,235);
+        }
+        .light-purple{
+            background: rgba(235,254,235);
+        }
+        .light-green{
+            background: rgba(235,254,235);
+        }
+        .light-blue{
+            background: rgba(235,254,235);
+        }
+        .dark-red{
+            background: red;
+        }
+        .dark-purple{
+            background: purple;
+        }
+        .dark-green{
+            background: rgb(74, 100, 248);
+        }
+        .dark-blue{
+            background: rgb(0, 255, 106);
+        }
+
+        /*tabular section*/
+        .tabular--wrapper{
+            background: rgb(250, 216, 216);
+            margin-top: 1rem;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        .table-container{
+            width: 100%;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead{
+            background: rgba(113,99,186,255);
+            background: rgb(41, 41, 41);
+            color: white;
+            
+        }
+        th{
+            padding: 15px;
+            text-align: left;
+        }
+        tbody{
+            background: #d3fa48;
+        }
+        td{
+            padding: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+        tr:nth-child(even){
+            background: white;
+        }
+        tfoot{
+            background: rgba(113,99,186,255);
+            font-weight: bold;
+            color: white;
+        }
+        tfoot td{
+            padding: 15px;
+        }
+        .table-container button{
+            color: green;
+            background: none;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo"></div>
+        <ul class="menu">
+            <li class="active">
+                <a href="#" >
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Statistics</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="#">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-star"></i>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="main--content">
+      <div class="header--wrapper">
+        <div class="header--title">
+            <span>Primary</span>
+            <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+            <div class="search--box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <img src="logo1.jpg" alt="">
+        </div>
+      </div> 
+      <div class="card--container">
+        <h3 class="main--title">Today's data</h3>
+        <div class="card--wrapper">
+            <div class="payment--card light-red">
+                <div class="card--header">
+                    <div class="ammount">
+                        <span class="title">
+                            Medicine
+                        </span>
+                        <span class="ammount-value">
+                            Available
+                        </span>
+                    </div>
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span class="card-detail">
+                    Requests
+                </span>
+            </div>
+
+            <div class="payment--card light-purple">
+                <div class="card--header">
+                    <div class="ammount">
+                        <span class="title">
+                            Payment order
+                        </span>
+                        <span class="ammount-value">
+                            $5162
+                        </span>
+                    </div>
+                    <i class="fas fa-pills"></i>
+                </div>
+                <span class="card-detail">
+                    **** **** **** 5542
+                </span>
+            </div>
+
+            <div class="payment--card light-green">
+                <div class="card--header">
+                    <div class="ammount">
+                        <span class="title">
+                            Notification
+                        </span>
+                        <span class="ammount-value">
+                            Appear
+                        </span>
+                    </div>
+                    <i class="fas fa-ambulance "></i>
+                </div>
+                <span class="card-detail">
+                    Today
+                </span>
+            </div>
+
+            <div class="payment--card light-blue">
+                <div class="card--header">
+                    <div class="ammount">
+                        <span class="title">
+                            Statistics
+                        </span>
+                        <span class="ammount-value">
+                        This week
+                        </span>
+                    </div>
+                    <i class="fas fa-solid fa-check icon "></i>
+                </div>
+                <span class="card-detail">
+                    Graphs
+                </span>
+            </div>
+        </div>
+      </div> 
+      <div class="tabular--wrapper">
+        <h3 class="main--title">Recent patients</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Incident Type</th>
+                        <th>Description</th>
+                        <th>Phone no</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            2013-05-01
+                        </td>
+                        <td>Najim said hassan</td>
+                        <td> medicine </td>
+                        <td>medicine name</td>
+                        <td>0776545978</td>
+                        <td>Done</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            2013-05-01
+                        </td>
+                        <td>khudhaima makame haji</td>
+                        <td> medicine </td>
+                        <td>medicine name</td>
+                        <td>0776545978</td>
+                        <td>Done</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            2013-05-01
+                        </td>
+                        <td>hassan mohd juma</td>
+                        <td> medicine </td>
+                        <td>medicine name</td>
+                        <td>0776545978</td>
+                        <td>Done</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            2013-05-01
+                        </td>
+                        <td>Ahmad seif salum</td>
+                        <td> medicine </td>
+                        <td>medicine name</td>
+                        <td>0776545978</td>
+                        <td>Done</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            2013-05-01
+                        </td>
+                        <td>omar juma saleh</td>
+                        <td> medicine </td>
+                        <td>medicine name</td>
+                        <td>0776545978</td>
+                        <td>Done</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+    
+</body>
+</html>
